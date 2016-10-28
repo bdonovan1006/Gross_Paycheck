@@ -1,0 +1,69 @@
+/**
+ * Brian Donovan
+ * Brian1006@comcast.net
+ * This program will calculate the paycheck for an employee based on hourly
+ * salary, weekly time with a max of 40 hours, and overtime for more than 40
+ * hours.
+ */
+import java.util.Scanner;
+
+public class PaycheckAdvanced {
+
+    public static void main(String[] args) {
+        Scanner keyboard = new Scanner(System.in);
+
+        System.out.println("Welcome to the Gross Paycheck Calculator");
+        System.out.println();
+
+        System.out.print("\tPlease enter Hourly Salary: $");
+        double salary = keyboard.nextDouble();
+
+        if (salary <= 0) {  // tests for valid salary.
+            System.out.println("\tThis is an invalid salary amount.");
+            System.out.println("\tPlease run the program again.");
+            System.exit(0);
+        }
+
+        System.out.print("\tPlease enter Weekly Time ");
+        int time = keyboard.nextInt();
+
+        if (time <= 0) {  // tests for valid time
+            System.out.println("\tThis is an invalid weekly time.");
+            System.out.println("\tPlease run the program again.");
+            System.exit(0);
+        }   // end of invalid input testing.
+
+        System.out.println();
+        double regPay = 0;
+        double oTPay = 0;
+        double grossPay = 0;
+        int oTime = 0;
+       
+        /**
+         * Beginning of paycheck calculation. If statements determine how many
+         * overtime hours, if any, must be accounted for and then determines the
+         * paycheck based on regular paying hours and overtime paying hours.
+         */
+        if (time <= 40) {            //pay for no overtime hours.
+            oTime = 0;
+            regPay = (salary * time);
+            oTPay = (salary * oTime * 1.5);
+            grossPay = (regPay + oTPay);
+        } else if (time > 40) {        //pay for time including overtime hours.
+            oTime = (time - 40);
+            time = time - oTime;
+            regPay = (salary * time);
+            oTPay = (salary * oTime * 1.5);
+            grossPay = (regPay + oTPay);
+        }       //end of paycheck calculation
+
+        //Prints out User inputs, regular pay, overtime pay, and net pay.
+        System.out.println("Hourly Salary: $" + salary);
+        System.out.println("Weekly Time: " + time + " hour(s)");
+        System.out.println("Regular Pay for " + time + " hour(s)");
+        System.out.println("Overtime Pay for " + oTime + " hour(s)");
+        System.out.println("Gross Pay: $" + grossPay);
+        System.out.println();
+        System.out.println("Thank you for using the Gross Paycheck Calculator");
+    }  //end of program.
+}
